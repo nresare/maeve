@@ -1,0 +1,341 @@
+From dev-return-@kafka.apache.org  Mon Sep 26 18:34:43 2022
+Return-Path: <dev-return-@kafka.apache.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on stacey.resare.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-15.4 required=8.0 tests=BAYES_00,
+	MSGID_FROM_MTA_HEADER,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=ham
+	autolearn_force=no version=3.4.4
+X-Original-To: noa@resare.com
+Delivered-To: noa@stacey.resare.com
+Received: from mxout1-ec2-va.apache.org (mxout1-ec2-va.apache.org [3.227.148.255])
+	by stacey.resare.com (Postfix) with ESMTPS id F1480BBD37
+	for <noa@resare.com>; Mon, 26 Sep 2022 18:34:42 +0000 (UTC)
+Received: from mail.apache.org (mailroute1-lw-us.apache.org [207.244.88.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mxout1-ec2-va.apache.org (ASF Mail Server at mxout1-ec2-va.apache.org) with ESMTPS id 4D9E13EFF3
+	for <noa@resare.com>; Mon, 26 Sep 2022 18:34:25 +0000 (UTC)
+Received: (qmail 3299775 invoked by uid 998); 26 Sep 2022 18:34:24 -0000
+Mailing-List: contact dev-help@kafka.apache.org; run by ezmlm
+List-Help: <mailto:dev-help@kafka.apache.org>
+List-Post: <mailto:dev@kafka.apache.org>
+List-Subscribe: <mailto:dev-subscribe@kafka.apache.org>
+Date: 26 Sep 2022 18:34:24 -0000
+Message-ID: <1664217264.3299774.ezmlm@kafka.apache.org>
+From: dev-help@kafka.apache.org
+To: noa@resare.com
+Delivered-To: responder for dev@kafka.apache.org
+Received: (qmail 3299766 invoked by uid 116); 26 Sep 2022 18:34:24 -0000
+Received: from spamproc1-he-de.apache.org (HELO spamproc1-he-de.apache.org) (116.203.196.100)
+ by apache.org (qpsmtpd/0.94) with ESMTP; Mon, 26 Sep 2022 18:34:24 +0000
+Received: from localhost (localhost [127.0.0.1])
+	by spamproc1-he-de.apache.org (ASF Mail Server at spamproc1-he-de.apache.org) with ESMTP id 5E4151FF0EA
+	for <dev-unsubscribe@kafka.apache.org>; Mon, 26 Sep 2022 18:34:24 +0000 (UTC)
+Received: from mx1-ec2-va.apache.org ([116.203.227.195])
+	by localhost (spamproc1-he-de.apache.org [116.203.196.100]) (amavisd-new, port 10024)
+	with ESMTP id MeRlrwNrKnr3 for <dev-unsubscribe@kafka.apache.org>;
+	Mon, 26 Sep 2022 18:34:24 +0000 (UTC)
+Received: from stacey.resare.com (stacey.resare.com [172.104.148.31])
+	by mx1-ec2-va.apache.org (ASF Mail Server at mx1-ec2-va.apache.org) with ESMTPS id 97ECFBBB70
+	for <dev-unsubscribe@kafka.apache.org>; Mon, 26 Sep 2022 18:34:23 +0000 (UTC)
+Received: from smtpclient.apple (unknown [IPv6:2a02:390:86ad:c13:15b:a498:9952:84db])
+	by stacey.resare.com (Postfix) with ESMTPSA id 99D44BBD37
+	for <dev-unsubscribe@kafka.apache.org>; Mon, 26 Sep 2022 18:34:16 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Reply-To: dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org
+Subject: confirm unsubscribe from dev@kafka.apache.org
+X-IMAPbase: 1543576133 0000033163 $Forwarded Redirected $MailFlagBit0 $MailFlagBit1 $MailFlagBit2
+X-UID: 33162                                     
+Status: RO
+Content-Length: 5157
+X-Status: A
+
+Hi! This is the ezmlm program. I'm managing the
+dev@kafka.apache.org mailing list.
+
+I'm working for my owner, who can be reached
+at dev-owner@kafka.apache.org.
+
+To confirm that you would like
+
+   noa@resare.com
+
+removed from the dev mailing list, please send a short reply 
+to this address:
+
+   dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org
+
+Usually, this happens when you just hit the "reply" button.
+If this does not work, simply copy the address and paste it into
+the "To:" field of a new message.
+
+or click here:
+	mailto:dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org
+
+I haven't checked whether your address is currently on the mailing list.
+To see what address you used to subscribe, look at the messages you are
+receiving from the mailing list. Each message has your address hidden
+inside its return path; for example, mary@xdd.ff.com receives messages
+with return path: <dev-return-<number>-mary=xdd.ff.com@kafka.apache.org.
+
+Some mail programs are broken and cannot handle long addresses. If you
+cannot reply to this request, instead send a message to
+<dev-request@kafka.apache.org> and put the entire address listed above
+into the "Subject:" line.
+
+
+--- Administrative commands for the dev list ---
+
+I can handle administrative requests automatically. Please
+do not send them to the list address! Instead, send
+your message to the correct command address:
+
+To subscribe to the list, send a message to:
+   <dev-subscribe@kafka.apache.org>
+
+To remove your address from the list, send a message to:
+   <dev-unsubscribe@kafka.apache.org>
+
+Send mail to the following for info and FAQ for this list:
+   <dev-info@kafka.apache.org>
+   <dev-faq@kafka.apache.org>
+
+Similar addresses exist for the digest list:
+   <dev-digest-subscribe@kafka.apache.org>
+   <dev-digest-unsubscribe@kafka.apache.org>
+
+To get messages 123 through 145 (a maximum of 100 per request), mail:
+   <dev-get.123_145@kafka.apache.org>
+
+To get an index with subject and author for messages 123-456 , mail:
+   <dev-index.123_456@kafka.apache.org>
+
+They are always returned as sets of 100, max 2000 per request,
+so you'll actually get 100-499.
+
+To receive all messages with the same subject as message 12345,
+send a short message to:
+   <dev-thread.12345@kafka.apache.org>
+
+The messages should contain one line or word of text to avoid being
+treated as sp@m, but I will ignore their content.
+Only the ADDRESS you send to is important.
+
+You can start a subscription for an alternate address,
+for example "john@host.domain", just add a hyphen and your
+address (with '=' instead of '@') after the command word:
+<dev-subscribe-john=host.domain@kafka.apache.org>
+
+To stop subscription for this address, mail:
+<dev-unsubscribe-john=host.domain@kafka.apache.org>
+
+In both cases, I'll send a confirmation message to that address. When
+you receive it, simply reply to it to complete your subscription.
+
+If despite following these instructions, you do not get the
+desired results, please contact my owner at
+dev-owner@kafka.apache.org. Please be patient, my owner is a
+lot slower than I am ;-)
+
+--- Enclosed is a copy of the request I received.
+
+Return-Path: <noa@resare.com>
+Received: (qmail 3299766 invoked by uid 116); 26 Sep 2022 18:34:24 -0000
+Received: from spamproc1-he-de.apache.org (HELO spamproc1-he-de.apache.org) (116.203.196.100)
+ by apache.org (qpsmtpd/0.94) with ESMTP; Mon, 26 Sep 2022 18:34:24 +0000
+Authentication-Results: apache.org; auth=none
+Received: from localhost (localhost [127.0.0.1])
+	by spamproc1-he-de.apache.org (ASF Mail Server at spamproc1-he-de.apache.org) with ESMTP id 5E4151FF0EA
+	for <dev-unsubscribe@kafka.apache.org>; Mon, 26 Sep 2022 18:34:24 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at spamproc1-he-de.apache.org
+X-Spam-Flag: NO
+X-Spam-Score: 2.343
+X-Spam-Level: **
+X-Spam-Status: No, score=2.343 tagged_above=-999 required=6.31
+	tests=[EMPTY_MESSAGE=2.344, SPF_PASS=-0.001] autolearn=disabled
+Received: from mx1-ec2-va.apache.org ([116.203.227.195])
+	by localhost (spamproc1-he-de.apache.org [116.203.196.100]) (amavisd-new, port 10024)
+	with ESMTP id MeRlrwNrKnr3 for <dev-unsubscribe@kafka.apache.org>;
+	Mon, 26 Sep 2022 18:34:24 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=172.104.148.31; helo=stacey.resare.com; envelope-from=noa@resare.com; receiver=<UNKNOWN> 
+Received: from stacey.resare.com (stacey.resare.com [172.104.148.31])
+	by mx1-ec2-va.apache.org (ASF Mail Server at mx1-ec2-va.apache.org) with ESMTPS id 97ECFBBB70
+	for <dev-unsubscribe@kafka.apache.org>; Mon, 26 Sep 2022 18:34:23 +0000 (UTC)
+Received: from smtpclient.apple (unknown [IPv6:2a02:390:86ad:c13:15b:a498:9952:84db])
+	by stacey.resare.com (Postfix) with ESMTPSA id 99D44BBD37
+	for <dev-unsubscribe@kafka.apache.org>; Mon, 26 Sep 2022 18:34:16 +0000 (UTC)
+From: Noa Resare <noa@resare.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: 
+Message-Id: <43150433-0963-493D-8276-45E69AFEB2F8@resare.com>
+Date: Mon, 26 Sep 2022 19:34:16 +0100
+To: dev-unsubscribe@kafka.apache.org
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
+
+From dev-return-@kafka.apache.org  Mon Sep 26 18:37:01 2022
+Return-Path: <dev-return-@kafka.apache.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on stacey.resare.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-14.4 required=8.0 tests=BAYES_00,
+	MSGID_FROM_MTA_HEADER,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=ham autolearn_force=no
+	version=3.4.4
+X-Original-To: noa@resare.com
+Delivered-To: noa@stacey.resare.com
+Received: from mxout1-he-de.apache.org (mxout1-he-de.apache.org [IPv6:2a01:4f9:c010:567c::1])
+	by stacey.resare.com (Postfix) with ESMTPS id DCCFEBBD37
+	for <noa@resare.com>; Mon, 26 Sep 2022 18:37:01 +0000 (UTC)
+Received: from mail.apache.org (mailroute1-lw-us.apache.org [207.244.88.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxout1-he-de.apache.org (ASF Mail Server at mxout1-he-de.apache.org) with ESMTPS id D7F81608E7
+	for <noa@resare.com>; Mon, 26 Sep 2022 18:37:00 +0000 (UTC)
+Received: (qmail 3302747 invoked by uid 998); 26 Sep 2022 18:36:59 -0000
+Mailing-List: contact dev-help@kafka.apache.org; run by ezmlm
+List-Help: <mailto:dev-help@kafka.apache.org>
+List-Post: <mailto:dev@kafka.apache.org>
+List-Subscribe: <mailto:dev-subscribe@kafka.apache.org>
+Date: 26 Sep 2022 18:36:59 -0000
+Message-ID: <1664217419.3302746.ezmlm@kafka.apache.org>
+From: dev-help@kafka.apache.org
+To: noa@resare.com
+Delivered-To: responder for dev@kafka.apache.org
+Received: (qmail 3302738 invoked by uid 116); 26 Sep 2022 18:36:59 -0000
+Received: from spamproc1-he-fi.apache.org (HELO spamproc1-he-fi.apache.org) (95.217.134.168)
+ by apache.org (qpsmtpd/0.94) with ESMTP; Mon, 26 Sep 2022 18:36:59 +0000
+Received: from localhost (localhost [127.0.0.1])
+	by spamproc1-he-fi.apache.org (ASF Mail Server at spamproc1-he-fi.apache.org) with ESMTP id 0C55AC05F5
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>; Mon, 26 Sep 2022 18:36:59 +0000 (UTC)
+Received: from mx1-he-de.apache.org ([116.203.227.195])
+	by localhost (spamproc1-he-fi.apache.org [95.217.134.168]) (amavisd-new, port 10024)
+	with ESMTP id pfGcCxuBXS7y
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>;
+	Mon, 26 Sep 2022 18:36:58 +0000 (UTC)
+Received: from stacey.resare.com (stacey.resare.com [172.104.148.31])
+	by mx1-he-de.apache.org (ASF Mail Server at mx1-he-de.apache.org) with ESMTPS id 4BD957E5BE
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>; Mon, 26 Sep 2022 18:36:58 +0000 (UTC)
+Received: from smtpclient.apple (unknown [IPv6:2a02:390:86ad:c13:15b:a498:9952:84db])
+	by stacey.resare.com (Postfix) with ESMTPSA id D2A8EBBD37
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>; Mon, 26 Sep 2022 18:36:57 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Subject: GOODBYE from dev@kafka.apache.org
+X-UID: 33163                                                  
+Status: RO
+Content-Length: 4647
+
+
+Hi! This is the ezmlm program. I'm managing the
+dev@kafka.apache.org mailing list.
+
+I'm working for my owner, who can be reached
+at dev-owner@kafka.apache.org.
+
+Acknowledgment: I have removed the address
+
+   noa@resare.com
+
+from the dev mailing list. This address
+is no longer a subscriber.
+
+
+--- Administrative commands for the dev list ---
+
+I can handle administrative requests automatically. Please
+do not send them to the list address! Instead, send
+your message to the correct command address:
+
+To subscribe to the list, send a message to:
+   <dev-subscribe@kafka.apache.org>
+
+To remove your address from the list, send a message to:
+   <dev-unsubscribe@kafka.apache.org>
+
+Send mail to the following for info and FAQ for this list:
+   <dev-info@kafka.apache.org>
+   <dev-faq@kafka.apache.org>
+
+Similar addresses exist for the digest list:
+   <dev-digest-subscribe@kafka.apache.org>
+   <dev-digest-unsubscribe@kafka.apache.org>
+
+To get messages 123 through 145 (a maximum of 100 per request), mail:
+   <dev-get.123_145@kafka.apache.org>
+
+To get an index with subject and author for messages 123-456 , mail:
+   <dev-index.123_456@kafka.apache.org>
+
+They are always returned as sets of 100, max 2000 per request,
+so you'll actually get 100-499.
+
+To receive all messages with the same subject as message 12345,
+send a short message to:
+   <dev-thread.12345@kafka.apache.org>
+
+The messages should contain one line or word of text to avoid being
+treated as sp@m, but I will ignore their content.
+Only the ADDRESS you send to is important.
+
+You can start a subscription for an alternate address,
+for example "john@host.domain", just add a hyphen and your
+address (with '=' instead of '@') after the command word:
+<dev-subscribe-john=host.domain@kafka.apache.org>
+
+To stop subscription for this address, mail:
+<dev-unsubscribe-john=host.domain@kafka.apache.org>
+
+In both cases, I'll send a confirmation message to that address. When
+you receive it, simply reply to it to complete your subscription.
+
+If despite following these instructions, you do not get the
+desired results, please contact my owner at
+dev-owner@kafka.apache.org. Please be patient, my owner is a
+lot slower than I am ;-)
+
+--- Enclosed is a copy of the request I received.
+
+Return-Path: <noa@resare.com>
+Received: (qmail 3302738 invoked by uid 116); 26 Sep 2022 18:36:59 -0000
+Received: from spamproc1-he-fi.apache.org (HELO spamproc1-he-fi.apache.org) (95.217.134.168)
+ by apache.org (qpsmtpd/0.94) with ESMTP; Mon, 26 Sep 2022 18:36:59 +0000
+Authentication-Results: apache.org; auth=none
+Received: from localhost (localhost [127.0.0.1])
+	by spamproc1-he-fi.apache.org (ASF Mail Server at spamproc1-he-fi.apache.org) with ESMTP id 0C55AC05F5
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>; Mon, 26 Sep 2022 18:36:59 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at spamproc1-he-fi.apache.org
+X-Spam-Flag: NO
+X-Spam-Score: -0.01
+X-Spam-Level:
+X-Spam-Status: No, score=-0.01 tagged_above=-999 required=6.31
+	tests=[SPF_PASS=-0.001, T_SCC_BODY_TEXT_LINE=-0.01,
+	URIBL_BLOCKED=0.001] autolearn=disabled
+Received: from mx1-he-de.apache.org ([116.203.227.195])
+	by localhost (spamproc1-he-fi.apache.org [95.217.134.168]) (amavisd-new, port 10024)
+	with ESMTP id pfGcCxuBXS7y
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>;
+	Mon, 26 Sep 2022 18:36:58 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=172.104.148.31; helo=stacey.resare.com; envelope-from=noa@resare.com; receiver=<UNKNOWN> 
+Received: from stacey.resare.com (stacey.resare.com [172.104.148.31])
+	by mx1-he-de.apache.org (ASF Mail Server at mx1-he-de.apache.org) with ESMTPS id 4BD957E5BE
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>; Mon, 26 Sep 2022 18:36:58 +0000 (UTC)
+Received: from smtpclient.apple (unknown [IPv6:2a02:390:86ad:c13:15b:a498:9952:84db])
+	by stacey.resare.com (Postfix) with ESMTPSA id D2A8EBBD37
+	for <dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org>; Mon, 26 Sep 2022 18:36:57 +0000 (UTC)
+From: Noa Resare <noa@resare.com>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: Re: confirm unsubscribe from dev@kafka.apache.org
+Date: Mon, 26 Sep 2022 19:36:57 +0100
+References: <1664217264.3299774.ezmlm@kafka.apache.org>
+To: dev-uc.1664217264.jelgokbechbelffihcel-noa=resare.com@kafka.apache.org
+In-Reply-To: <1664217264.3299774.ezmlm@kafka.apache.org>
+Message-Id: <AC789373-B6B4-4366-B706-D953AEE7205F@resare.com>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
+
