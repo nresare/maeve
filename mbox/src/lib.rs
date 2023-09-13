@@ -1,4 +1,7 @@
+#[macro_use]
+mod macros;
 mod io;
+mod buf;
 
 #[cfg(test)]
 use crate::io::read_handling_short;
