@@ -1,16 +1,20 @@
-#[cfg(test)]
 use anyhow::Result;
-#[cfg(test)]
 use std::io::Read;
 
 /// A variant of Reader.read() that will handle short reads by repeating the read until
 /// there is a zero read.
-#[cfg(test)]
 pub fn read_handling_short(mut reader: impl Read, buf: &mut [u8]) -> Result<usize> {
     let mut this_count = reader.read(buf)?;
+    println!("first read yielded {:?}", this_count);
     let mut total_count = this_count;
+    let mut i = 0;
     while this_count > 0 && total_count < buf.len() {
+        i += 1;
+        if i > 10 {
+            break;
+        }
         this_count = reader.read(&mut buf[total_count..])?;
+        println!("next read yielded {:?}", this_count);
         total_count += this_count;
     }
     Ok(total_count)

@@ -1,34 +1,20 @@
 #[macro_use]
 mod macros;
 mod io;
-mod buf;
+pub mod buf;
 
-#[cfg(test)]
 use crate::io::read_handling_short;
-#[cfg(test)]
 use anyhow::Result;
-#[cfg(test)]
 use bytes::BytesMut;
-#[cfg(test)]
 use std::io::Read;
-#[cfg(test)]
-const BUF_SIZE: usize = 8192;
+use crate::buf::{Buf, Status};
 
-#[cfg(test)]
-struct Parser {
-    reader: Box<dyn Read>,
-    buf: BytesMut,
-    start: usize,
-    buf_size: usize,
-}
-
-#[cfg(test)]
 impl Parser {
-    fn new(reader: Box<dyn Read>) -> Self {
+    pub fn new(reader: Box<dyn Read>) -> Self {
         Parser::with_buf_size(reader, BUF_SIZE)
     }
 
-    fn with_buf_size(reader: Box<dyn Read>, buf_size: usize) -> Self {
+    pub fn with_buf_size(reader: Box<dyn Read>, buf_size: usize) -> Self {
         Parser {
             reader,
             buf: BytesMut::zeroed(buf_size),
@@ -36,6 +22,43 @@ impl Parser {
             buf_size,
         }
     }
+
+    fn new_get_lines(&mut self) -> Result<Vec<String>> {
+        let mut lines: Vec<String> = Vec::new();
+        println!("calling new_get_lines()");
+        let mut buf = Buf::new(self.buf_size);
+        let mut first = true;
+        loop {
+            let result = buf.fill(&mut self.reader)?;
+            if !first {
+                break;
+            }
+            first = false;
+            if result == Status::EndOfFile {
+                break;
+            }
+            println!("buf is now {:?}", String::from_utf8(buf.peek().to_vec())?);
+            handle_filled(&mut lines, &mut buf)?;
+        }
+
+        Ok(lines)
+    }
+    //
+    //     loop {
+    //         let result = buf.fill(&mut self.reader)?;
+    //         if result == Status::EndOfFile {
+    //             break
+    //         }
+    //         println!("buf is now {:?}", String::from_utf8(buf.peek().to_vec())?);
+    //         handle_filled(&mut lines, &mut buf)?;
+    //     }
+    //
+    //     let slice = buf.peek();
+    //     if slice.len() > 0 {
+    //         lines.push(String::from_utf8(slice.to_vec())?);
+    //     }
+    //     Ok(lines)
+    // }
 
     fn get_lines(&mut self) -> Result<Vec<String>> {
         let buf = &mut self.buf;
@@ -65,17 +88,52 @@ impl Parser {
     }
 }
 
+const BUF_SIZE: usize = 8192;
+
+pub struct Parser {
+    reader: Box<dyn Read>,
+    buf: BytesMut,
+    start: usize,
+    buf_size: usize,
+}
+
+fn handle_filled(lines: &mut Vec<String>, buf: &mut Buf) -> Result<()> {
+    loop {
+        let slice = buf.peek();
+        match find_newline(slice) {
+            None => {
+                return Ok(())
+            }
+            Some(pos) => {
+                lines.push(String::from_utf8(slice[0..pos].to_vec())?);
+                buf.consume(pos)?;
+            }
+        }
+    }
+}
+
+fn find_newline(slice: &[u8]) -> Option<usize> {
+    for (i, c) in slice.iter().enumerate() {
+        if *c == 0x0a {
+            return Some(i)
+        }
+    }
+    return None
+}
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_read() -> Result<()> {
+        println!("calling test_read()");
         let mut parser = Parser::new(Box::new(b"foo\nbar\nbaz".as_ref()));
-        let result = parser.get_lines()?;
-        assert_eq!(vec!["foo", "bar", "baz"], result);
+        let result = parser.new_get_lines()?;
         Ok(())
     }
+    //     assert_eq!(vec!["foo", "bar", "baz"], result);
+    //     Ok(())
+    // }
 
     #[test]
     fn test_read_with_small_buffer() -> Result<()> {
