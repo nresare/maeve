@@ -29,7 +29,6 @@ impl<'a> Buf {
     /// Move any remaining data to the beginning of the buffer and fills the
     /// rest with the data obtain by calling read() on reader one or more times.
     pub fn fill(&mut self, reader: impl Read) -> Result<Status> {
-        println!("calling fill()");
         if self.available() > 0 && self.start > 0 {
             move_data_to_beginning(self);
         }
