@@ -5,7 +5,8 @@ mod io;
 pub mod mbox;
 
 use crate::buf::{Buf, Status};
-use anyhow::Result;
+use crate::mbox::find_from;
+use anyhow::{anyhow, Result};
 use std::io::Read;
 
 pub struct Parser {
@@ -25,81 +26,61 @@ impl Parser {
         }
     }
 
-    pub fn get_lines(&mut self) -> Result<Vec<String>> {
-        let mut lines: Vec<String> = Vec::new();
-        loop {
-            let result = self.buf.fill(&mut self.reader)?;
-            if result == Status::EndOfFile {
-                break;
+    pub fn get_messages(&mut self) -> Result<Vec<String>> {
+        let mut message: Vec<String> = Vec::new();
+
+        let mut first = false;
+
+        while let Ok(Status::Success) = self.buf.fill(&mut self.reader) {
+            if first {
+                // The first message is a special case, as there is no double newline from the
+                // previous message to match on
+                if !self.buf.peek().starts_with(b"From ") {
+                    return Err(anyhow!("File doesn't start with the expected 'From '"));
+                }
+                first = false;
             }
-            handle_filled(&mut lines, &mut self.buf)?;
+
+            inner_get_message(&mut message, &mut self.buf);
         }
-        // handle the last piece of data as a special case as
-        // there might not be a newline around.
-        let slice = self.buf.peek();
-        if slice.len() > 0 {
-            lines.push(String::from_utf8(slice.to_vec())?);
-        }
-        Ok(lines)
+
+        message.push(make_message(self.buf.peek()));
+        Ok(message)
     }
+}
+
+fn inner_get_message(messages: &mut Vec<String>, buf: &mut Buf) {
+    let mut slice = buf.peek();
+
+    while let Some(pos) = find_from(slice) {
+        messages.push(make_message(&slice[0..pos]));
+
+        // why + 2? Because the first part of the matching string, "\n\n" could be
+        // thought of as in between the messages. Another side effect of this is that
+        // find_from() now won't match at pos 0 the next time around.
+        buf.consume(pos + 2).unwrap();
+        slice = buf.peek();
+    }
+}
+
+fn make_message(bytes: &[u8]) -> String {
+    String::from_utf8_lossy(bytes).to_string()
 }
 
 const BUF_SIZE: usize = 8192;
-
-fn handle_filled(lines: &mut Vec<String>, buf: &mut Buf) -> Result<()> {
-    loop {
-        let slice = buf.peek();
-        match find_newline(slice) {
-            None => return Ok(()),
-            Some(pos) => {
-                lines.push(String::from_utf8(slice[0..pos].to_vec())?);
-                buf.consume(pos + 1)?;
-            }
-        }
-    }
-}
-
-fn find_newline(slice: &[u8]) -> Option<usize> {
-    for (i, c) in slice.iter().enumerate() {
-        if *c == 0x0a {
-            return Some(i);
-        }
-    }
-    return None;
-}
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_read() -> Result<()> {
-        let mut parser = Parser::new(Box::new(b"foo\nbar\nbaz".as_ref()));
-        let result = parser.get_lines()?;
-        assert_eq!(vec!["foo", "bar", "baz"], result);
-        Ok(())
-    }
+    fn test_get_messages() {
+        let mut parser = Parser::new(Box::new(r!("From abc")));
+        let result = parser.get_messages().unwrap();
+        assert_eq!(vec!["From abc"], result);
 
-    #[test]
-    fn test_read_with_small_buffer() -> Result<()> {
-        let mut parser = Parser::with_buf_size(Box::new(b"foo\nbar\nbaz".as_ref()), 5);
-        let result = parser.get_lines()?;
-        assert_eq!(vec!["foo", "bar", "baz"], result);
-        Ok(())
-    }
-
-    #[test]
-    fn test_lines_from_file() -> Result<()> {
-        let file = std::fs::File::open("kafka")?;
-        let mut parser = Parser::new(Box::new(file));
-        loop {
-            let lines = parser.get_lines()?;
-            if lines.len() == 0 {
-                return Ok(());
-            }
-            for line in lines {
-                print!("{}\n", line)
-            }
-        }
+        let mut parser = Parser::new(Box::new(r!("From abc\n\nFrom cde")));
+        let result = parser.get_messages().unwrap();
+        assert_eq!(vec!["From abc", "From cde"], result);
     }
 }

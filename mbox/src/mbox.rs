@@ -6,10 +6,10 @@ pub fn find_from(slice: &[u8]) -> Option<usize> {
     let mut progress: usize = 0;
     for (i, c) in slice.iter().enumerate() {
         if *c == FROM_BYTES[progress] {
-            if progress >= MATCH_LEN {
-                return Some(i - progress);
-            }
             progress += 1;
+            if progress == MATCH_LEN {
+                return Some(i + 1 - MATCH_LEN);
+            }
         } else {
             progress = 0;
         }

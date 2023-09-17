@@ -16,7 +16,7 @@ pub enum Status {
     EndOfFile,
 }
 
-impl<'a> Buf {
+impl Buf {
     /// Constructs and returns a new Buf instance of the specified size
     pub fn new(size: usize) -> Self {
         Buf {
@@ -37,7 +37,7 @@ impl<'a> Buf {
         match read_handling_short(reader, target)? {
             0 => Ok(Status::EndOfFile),
             count => {
-                self.end = self.end + count;
+                self.end += count;
                 Ok(Status::Success)
             }
         }
