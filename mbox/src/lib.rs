@@ -69,6 +69,8 @@ fn find_newline(slice: &[u8]) -> Option<usize> {
     }
     return None
 }
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -99,13 +101,11 @@ mod tests {
         loop {
             let lines = parser.get_lines()?;
             if lines.len() == 0 {
-                break;
+                return Ok(());
             }
             for line in lines {
                 print!("{}\n", line)
             }
-            //println!("{:?}", lines.len());
         }
-        Ok(())
     }
 }
