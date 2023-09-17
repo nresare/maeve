@@ -1,9 +1,8 @@
-use anyhow::Result;
 use std::io::Read;
 
 /// A variant of Reader.read() that will handle short reads by repeating the read until
 /// there is a zero read.
-pub fn read_handling_short(mut reader: impl Read, buf: &mut [u8]) -> Result<usize> {
+pub fn read_handling_short(mut reader: impl Read, buf: &mut [u8]) -> Result<usize, std::io::Error> {
     let mut this_count = reader.read(buf)?;
     let mut total_count = this_count;
     while this_count > 0 && total_count < buf.len() {
@@ -22,32 +21,29 @@ mod test {
     }
 
     use crate::io::read_handling_short;
-    use anyhow::Result;
     use std::io::{Cursor, Read};
     use std::ops::Deref;
     #[test]
-    fn read_data_larger_than_buf() -> Result<()> {
+    fn read_data_larger_than_buf() {
         let mut reader = r!(b"abcdefghijklmnop");
 
         let mut buf = [0u8; 2];
-        let count = read_handling_short(&mut reader, &mut buf[..])?;
+        let count = read_handling_short(&mut reader, &mut buf[..]).unwrap();
         assert_eq!(b"ab"[..], buf[..2]);
         assert_eq!(2, count);
 
-        let count = read_handling_short(&mut reader, &mut buf[..])?;
+        let count = read_handling_short(&mut reader, &mut buf[..]).unwrap();
         assert_eq!(b"cd"[..], buf[..2]);
         assert_eq!(2, count);
-        Ok(())
     }
 
     #[test]
-    fn read_data_smaller_than_buf() -> Result<()> {
+    fn read_data_smaller_than_buf() {
         let mut reader = r!(b"abcd");
 
         let mut buf = [0u8; 6];
-        let count = read_handling_short(&mut reader, &mut buf)?;
+        let count = read_handling_short(&mut reader, &mut buf).unwrap();
         assert_eq!(4, count);
-        Ok(())
     }
 
     struct ShortReader {
@@ -70,17 +66,15 @@ mod test {
     }
 
     #[test]
-    fn short_read() -> Result<()> {
+    fn short_read() {
         let mut data = vec![Box::from(&b"abc"[..]), Box::from(&b"def"[..])];
         data.reverse();
         let mut s = ShortReader { to_write: data };
         let mut buf = [0u8; 6];
-        let count = read_handling_short(&mut s, buf.as_mut())?;
+        let count = read_handling_short(&mut s, buf.as_mut()).unwrap();
         assert_eq!(&b"abcdef"[..], buf.as_ref());
         assert_eq!(6, count);
-        let count = read_handling_short(&mut s, buf.as_mut())?;
+        let count = read_handling_short(&mut s, buf.as_mut()).unwrap();
         assert_eq!(0, count);
-
-        Ok(())
     }
 }
