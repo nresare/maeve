@@ -1,5 +1,4 @@
 use crate::io::read_handling_short;
-use anyhow::{anyhow, Result};
 use bytes::BytesMut;
 use std::io::Read;
 
@@ -28,7 +27,7 @@ impl Buf {
 
     /// Move any remaining data to the beginning of the buffer and fills the
     /// rest with the data obtain by calling read() on reader one or more times.
-    pub fn fill(&mut self, reader: impl Read) -> Result<Status> {
+    pub fn fill(&mut self, reader: impl Read) -> Result<Status, std::io::Error> {
         if self.available() > 0 && self.start > 0 {
             move_data_to_beginning(self);
         }
@@ -54,12 +53,9 @@ impl Buf {
     }
 
     /// mark count bytes as consumed.
-    pub fn consume(&mut self, count: usize) -> Result<()> {
-        if count > self.end {
-            return Err(anyhow!("invalid consume"));
-        }
+    pub fn consume(&mut self, count: usize) {
+        assert!(count <= self.end);
         self.start += count;
-        Ok(())
     }
 }
 
@@ -84,28 +80,25 @@ fn move_data_to_beginning(buf: &mut Buf) {
 #[cfg(test)]
 mod test {
     use crate::buf::{move_data_to_beginning, Buf, Status};
-    use anyhow::Result;
 
     #[test]
-    fn test_fill() -> Result<()> {
+    fn test_fill() {
         // More data in than the buffer size
-        do_fill_once(b"abcd", 3, Status::Success)?;
+        do_fill_once(b"abcd", 3, Status::Success);
         // Same amount of data
-        do_fill_once(b"abc", 3, Status::Success)?;
+        do_fill_once(b"abc", 3, Status::Success);
         // less data than buffer size
-        do_fill_once(b"abc", 4, Status::Success)?;
-        Ok(())
+        do_fill_once(b"abc", 4, Status::Success);
     }
 
     #[test]
-    fn test_peek() -> Result<()> {
+    fn test_peek() {
         let r = r!(b"abc");
         let mut buf = Buf::new(3);
-        assert_eq!(Status::Success, buf.fill(r)?);
+        assert_eq!(Status::Success, buf.fill(r).unwrap());
         assert_eq!(b"abc", buf.peek());
-        buf.consume(1)?;
+        buf.consume(1);
         assert_eq!(b"bc", buf.peek());
-        Ok(())
     }
 
     #[test]
@@ -113,7 +106,7 @@ mod test {
         let r = r!(b"abcdefgh");
         let mut buf = Buf::new(8);
         buf.fill(r).unwrap();
-        buf.consume(4).unwrap();
+        buf.consume(4);
         move_data_to_beginning(&mut buf);
         assert_eq!(0, buf.start);
         assert_eq!(4, buf.end);
@@ -125,7 +118,7 @@ mod test {
         let r = r!(b"abcdefgh");
         let mut buf = Buf::new(8);
         buf.fill(r).unwrap();
-        buf.consume(1).unwrap();
+        buf.consume(1);
         move_data_to_beginning(&mut buf);
         assert_eq!(0, buf.start);
         assert_eq!(7, buf.end);
@@ -137,17 +130,16 @@ mod test {
         let mut r = r!(b"abcdefgh");
         let mut buf = Buf::new(6);
         buf.fill(&mut r).unwrap();
-        buf.consume(4).unwrap();
+        buf.consume(4);
         buf.fill(&mut r).unwrap();
         assert_eq!(0, buf.start);
         assert_eq!(4, buf.end);
         assert_eq!(b"efgh", buf.peek());
     }
 
-    fn do_fill_once(data: &'static [u8], buf_size: usize, expected: Status) -> Result<()> {
+    fn do_fill_once(data: &'static [u8], buf_size: usize, expected: Status) {
         let r = r!(data);
         let mut buf = Buf::new(buf_size);
-        assert_eq!(expected, buf.fill(r)?);
-        Ok(())
+        assert_eq!(expected, buf.fill(r).unwrap());
     }
 }
