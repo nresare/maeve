@@ -1,7 +1,7 @@
-use std::io::Read;
-use bytes::BytesMut;
-use anyhow::{anyhow, Result};
 use crate::io::read_handling_short;
+use anyhow::{anyhow, Result};
+use bytes::BytesMut;
+use std::io::Read;
 
 /// our special that keeps track of where we are
 pub struct Buf {
@@ -13,7 +13,7 @@ pub struct Buf {
 #[derive(PartialEq, Debug)]
 pub enum Status {
     Success,
-    EndOfFile
+    EndOfFile,
 }
 
 impl<'a> Buf {
@@ -35,9 +35,7 @@ impl<'a> Buf {
 
         let target = &mut self.inner[self.end..];
         match read_handling_short(reader, target)? {
-            0 => {
-                Ok(Status::EndOfFile)
-            }
+            0 => Ok(Status::EndOfFile),
             count => {
                 self.end = self.end + count;
                 Ok(Status::Success)
@@ -58,7 +56,7 @@ impl<'a> Buf {
     /// mark count bytes as consumed.
     pub fn consume(&mut self, count: usize) -> Result<()> {
         if count > self.end {
-            return Err(anyhow!("invalid consume"))
+            return Err(anyhow!("invalid consume"));
         }
         self.start += count;
         Ok(())
@@ -85,11 +83,11 @@ fn move_data_to_beginning(buf: &mut Buf) {
 
 #[cfg(test)]
 mod test {
-    use crate::buf::{Buf, move_data_to_beginning, Status};
+    use crate::buf::{move_data_to_beginning, Buf, Status};
     use anyhow::Result;
 
     #[test]
-    fn test_fill() -> Result<()>{
+    fn test_fill() -> Result<()> {
         // More data in than the buffer size
         do_fill_once(b"abcd", 3, Status::Success)?;
         // Same amount of data
@@ -145,7 +143,6 @@ mod test {
         assert_eq!(4, buf.end);
         assert_eq!(b"efgh", buf.peek());
     }
-
 
     fn do_fill_once(data: &'static [u8], buf_size: usize, expected: Status) -> Result<()> {
         let r = r!(data);

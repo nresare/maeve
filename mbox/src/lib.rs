@@ -1,11 +1,12 @@
 #[macro_use]
 mod macros;
+mod buf;
 mod io;
-pub mod buf;
+pub mod mbox;
 
+use crate::buf::{Buf, Status};
 use anyhow::Result;
 use std::io::Read;
-use crate::buf::{Buf, Status};
 
 pub struct Parser {
     reader: Box<dyn Read>,
@@ -45,14 +46,11 @@ impl Parser {
 
 const BUF_SIZE: usize = 8192;
 
-
 fn handle_filled(lines: &mut Vec<String>, buf: &mut Buf) -> Result<()> {
     loop {
         let slice = buf.peek();
         match find_newline(slice) {
-            None => {
-                return Ok(())
-            }
+            None => return Ok(()),
             Some(pos) => {
                 lines.push(String::from_utf8(slice[0..pos].to_vec())?);
                 buf.consume(pos + 1)?;
@@ -64,12 +62,11 @@ fn handle_filled(lines: &mut Vec<String>, buf: &mut Buf) -> Result<()> {
 fn find_newline(slice: &[u8]) -> Option<usize> {
     for (i, c) in slice.iter().enumerate() {
         if *c == 0x0a {
-            return Some(i)
+            return Some(i);
         }
     }
-    return None
+    return None;
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -85,10 +82,7 @@ mod tests {
 
     #[test]
     fn test_read_with_small_buffer() -> Result<()> {
-        let mut parser = Parser::with_buf_size(
-            Box::new(b"foo\nbar\nbaz".as_ref()),
-            5
-        );
+        let mut parser = Parser::with_buf_size(Box::new(b"foo\nbar\nbaz".as_ref()), 5);
         let result = parser.get_lines()?;
         assert_eq!(vec!["foo", "bar", "baz"], result);
         Ok(())
