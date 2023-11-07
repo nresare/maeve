@@ -1,6 +1,6 @@
 #[cfg(test)]
 macro_rules! r {
     ( $x:expr ) => {
-        ::std::io::Cursor::new(&$x[..])
+        Box::new(::std::io::Cursor::new(&$x[..]))
     };
 }

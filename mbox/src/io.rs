@@ -14,14 +14,8 @@ pub fn read_handling_short(mut reader: impl Read, buf: &mut [u8]) -> Result<usiz
 
 #[cfg(test)]
 mod test {
-    macro_rules! r {
-        ( $x:expr ) => {
-            Cursor::new(&$x[..])
-        };
-    }
-
     use crate::io::read_handling_short;
-    use std::io::{Cursor, Read};
+    use std::io::Read;
     use std::ops::Deref;
     #[test]
     fn read_data_larger_than_buf() {

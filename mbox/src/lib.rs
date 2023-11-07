@@ -84,11 +84,11 @@ mod tests {
 
     #[test]
     fn test_get_messages() {
-        let mut parser = Parser::new(Box::new(r!("From abc")));
+        let mut parser = Parser::new(r!("From abc"));
         let result = parser.get_messages().unwrap();
         assert_eq!(vec!["From abc"], result);
 
-        let mut parser = Parser::new(Box::new(r!("From abc\n\nFrom cde")));
+        let mut parser = Parser::new(r!("From abc\n\nFrom cde"));
         let result = parser.get_messages().unwrap();
         assert_eq!(vec!["From abc", "From cde"], result);
     }
@@ -96,7 +96,7 @@ mod tests {
     #[test]
     fn test_get_messages_small_buffer() {
         let msg = "From abc\n\nFrom cde\n\nFrom xyz\n\nFrom zzt";
-        let mut parser = Parser::with_buf_size(Box::new(r!(msg)), 15);
+        let mut parser = Parser::with_buf_size(r!(msg), 15);
         let result = parser.get_messages().unwrap();
         assert_eq!(vec!["From abc", "From cde", "From xyz", "From zzt"], result);
     }
@@ -118,7 +118,7 @@ mod tests {
 
     #[test]
     fn test_get_messages_without_leading_from() {
-        let mut parser = Parser::new(Box::new(r!("No From in the beginning")));
+        let mut parser = Parser::new(r!("No From in the beginning"));
         assert!(matches!(
             parser.get_messages(),
             Err(ParseError::MissingFirstFrom)
