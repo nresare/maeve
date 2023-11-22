@@ -2,7 +2,7 @@ use crate::io::read_handling_short;
 use bytes::BytesMut;
 use std::io::Read;
 
-/// our special that keeps track of where we are
+/// our special buf that keeps track of where we are
 pub struct Buf {
     inner: BytesMut,
     start: usize,
@@ -42,7 +42,8 @@ impl Buf {
         }
     }
 
-    fn available(&self) -> usize {
+
+    pub fn available(&self) -> usize {
         self.end - self.start
     }
 
@@ -53,9 +54,11 @@ impl Buf {
     }
 
     /// mark count bytes as consumed.
-    pub fn consume(&mut self, count: usize) {
+    pub fn consume(&mut self, count: usize) -> &[u8] {
         assert!(count <= self.end);
+        let old_start = self.start;
         self.start += count;
+        &self.inner[old_start..self.end]
     }
 }
 

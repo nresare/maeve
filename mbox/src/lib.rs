@@ -1,6 +1,6 @@
 #[macro_use]
 mod macros;
-mod buf;
+pub mod buf;
 mod io;
 mod mbox;
 
@@ -12,6 +12,7 @@ use thiserror::Error;
 pub struct Parser {
     reader: Box<dyn Read>,
     buf: Buf,
+    data: String,
 }
 
 #[derive(Error, Debug)]
@@ -31,6 +32,7 @@ impl Parser {
         Parser {
             reader,
             buf: Buf::new(buf_size),
+            data: String::from("foo"),
         }
     }
 
@@ -54,6 +56,42 @@ impl Parser {
 
         message.push(make_message(self.buf.peek()));
         Ok(message)
+    }
+}
+
+impl<'a> IntoIterator for &'a Parser {
+    type Item = Result<&'a [u8], ParseError>;
+    type IntoIter = Iter<'a>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        Iter{parser: self}
+    }
+}
+
+pub struct Iter<'a> {
+    parser: &'a Parser,
+}
+
+impl<'a> Iterator for Iter<'a> {
+    type Item = Result<&'a [u8], ParseError>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        // if self.parser.buf.available() == 0 {
+        //     match self.parser.buf.fill(&mut self.parser.reader) {
+        //         Ok(Status::Success) => {},
+        //         Ok(Status::EndOfFile) => return None,
+        //         Err(err) => return Some(Err(err.into())),
+        //     }
+        // }
+        if let Some(pos) = find_from(self.parser.buf.peek()) {
+            let x = self.parser.buf.consume(pos);
+            return Some(Ok(x));
+        }
+        if self.parser.buf.available() > 0 {
+            None
+        } else {
+            None //Some(Ok(self.buf.consume(self.buf.available())))
+        }
     }
 }
 
